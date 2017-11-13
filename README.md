@@ -6,3 +6,5 @@ TODO:
 * More elaborate item-system. Ability to pick up items from slain enemies, and replace current equipped ones. 
 * More rounds. Currently there's only 1, but more can quickly be added due to the program being built on classes.
 * Display the current characters name in the *DisplayStats* function
+
+Developed in Visual Studio 2017
