@@ -8,6 +8,7 @@ namespace gladiatorGame
 {
     // TODO: DisplayStats - A function with array(s), displaying all your current items and stats
     // TODO: AddItem - An option to loot slain opponents items. Before fights one can equip/unequip items
+    // TODO: Add the currents players character-name to the DisplayStats function
     class Program
     {
         // These are made to have two global keywords for the current active instances of their respective classes.
@@ -24,7 +25,9 @@ namespace gladiatorGame
             DisplayStats();
             Combat();
         }
-
+        /// <summary>
+        /// Brief intro to the game
+        /// </summary>
         public static void StartGame()
         {
             Print("Welcome, to the Grand Arena!", ConsoleColor.Green);
@@ -33,7 +36,9 @@ namespace gladiatorGame
             Print("Press any key to continue..", ConsoleColor.Red);
             Console.ReadKey();
         }
-
+        /// <summary>
+        /// To name the players character - contains while loop that only exists after string contains input
+        /// </summary>
         public static void NameChar()
         {
             bool nameCheck = true;
@@ -46,15 +51,15 @@ namespace gladiatorGame
                 Console.Write("Enter your name: ");
                 yourChar.name = Console.ReadLine(); // Assign input to name of the class
 
-                if (yourChar.name != "")
+                if (yourChar.name != "") // Check if yourChar string isn't empty
                 {
                     nameCheck = false;
                     Print("Alright, good luck in the arena " + yourChar.name + "!", ConsoleColor.Green);
                     Console.ReadKey();
                 }
 
-                // Basic error-handling
-                else if (yourChar.name == "")
+                // Basic error-handling - if string above if-statement fails, string must be empty
+                else
                 {
                     Print("Please enter a name!", ConsoleColor.Red);
                     Console.ReadKey();
@@ -63,7 +68,10 @@ namespace gladiatorGame
                 yourChar.name = hero.name;
             }
         }
-
+        /// <summary>
+        /// Function that determines which character type the user will play throughout the game
+        /// Depending on input, the function will create the respective character-type, using classes
+        /// </summary>
         static void ChooseChar()
         {
             string choice;
@@ -290,7 +298,10 @@ namespace gladiatorGame
             Print("\n" + "Press any key to continue..", ConsoleColor.Red);
             Console.ReadKey();
         }
-
+        /// <summary>
+        /// Combat function, loops over a boolean which is set to true as long as health is above 0
+        /// The combat system has three 'extra' mechanics; armor (damage reduction) and dodge & block (damage evasion)
+        /// </summary>
         static void Combat()
         {
             int enemyID = 1; // Enemy count, will increment if user wins the round
@@ -379,14 +390,23 @@ namespace gladiatorGame
                 round++; // Increments after every round
             }
         }
-
+        /// <summary>
+        /// Print function, easier print out text - takes to parameters
+        /// </summary>
+        /// <param name="msg">1: String, contains the text you want to output</param>
+        /// <param name="color">1: ConsoleColor, to specify the color of the text</param>
         static void Print(string msg, ConsoleColor color)
         {
             Console.ForegroundColor = color;
             Console.WriteLine(msg);
             Console.ResetColor();
         }
-
+        /// <summary>
+        /// Character class, contains all variables for the players 'hero'
+        /// Has two built-in functions; GetHeroDmg (1) and GetHeroArmor (2)
+        /// Function 1 - references to another function, within the Weapon class; used to return the value of weapon-damage
+        /// Function 2 - references to another function, within the Armor class; used to return the value of equipped armor
+        /// </summary>
         public class Character
         {
             public string name;
@@ -417,7 +437,10 @@ namespace gladiatorGame
                 return armor.GetArmor();
             }
         }
-
+        /// <summary>
+        /// Weapon class, contains all needed variables for weapons
+        /// Contains 1 function (GetWeaponDmg), used to return the value of the weapon damage roll (two values; minDmgRoll and maxDmgRoll)
+        /// </summary>
         public class Weapon
         {
             public string name;
@@ -432,7 +455,10 @@ namespace gladiatorGame
                 return roll.Next(minDmgRoll, maxDmgRoll);
             }
         }
-
+        /// <summary>
+        /// Armor class, contains all needed variables for armor
+        /// Contains 1 funciton (GetArmor), used to return the value of the hero's armor
+        /// </summary>
         public class Armor
         {
             public string name;
@@ -445,7 +471,10 @@ namespace gladiatorGame
                 return armor;
             }
         }
-
+        /// <summary>
+        /// Enemy class, contains all needed variables for enemies
+        /// Contains 1 function (GetEnemyDmg), used to return the roll of the characters damage
+        /// </summary>
         public class Enemy
         {
             public string name;
