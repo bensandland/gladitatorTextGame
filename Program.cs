@@ -25,6 +25,7 @@ namespace gladiatorGame
             DisplayStats();
             Combat();
         }
+
         /// <summary>
         /// Brief intro to the game
         /// </summary>
@@ -36,8 +37,9 @@ namespace gladiatorGame
             Print("Press any key to continue..", ConsoleColor.Red);
             Console.ReadKey();
         }
+
         /// <summary>
-        /// To name the players character - contains while loop that only exists after string contains input
+        /// To name the players character
         /// </summary>
         public static void NameChar()
         {
@@ -68,9 +70,9 @@ namespace gladiatorGame
                 yourChar.name = hero.name;
             }
         }
+
         /// <summary>
         /// Function that determines which character type the user will play throughout the game
-        /// Depending on input, the function will create the respective character-type, using classes
         /// </summary>
         static void ChooseChar()
         {
@@ -256,6 +258,7 @@ namespace gladiatorGame
                 }
             }
         }
+
         /// <summary>
         /// Displays stats for your current character in arrays
         /// </summary>
@@ -298,9 +301,9 @@ namespace gladiatorGame
             Print("\n" + "Press any key to continue..", ConsoleColor.Red);
             Console.ReadKey();
         }
+
         /// <summary>
         /// Combat function, loops over a boolean which is set to true as long as health is above 0
-        /// The combat system has three 'extra' mechanics; armor (damage reduction) and dodge & block (damage evasion)
         /// </summary>
         static void Combat()
         {
@@ -353,7 +356,7 @@ namespace gladiatorGame
                 Random defRoll = new Random();
                 int defensiveRoll = defRoll.Next(0, 100);
 
-                // Calculate chance to dodge
+                // Calculate chance to dodge and block
                 if (defensiveRoll < hero.agility + hero.blockChance)
                 {
                     Print("\n" + "You dodged your opponents damage!", ConsoleColor.Green);
@@ -372,7 +375,7 @@ namespace gladiatorGame
                 Console.ReadKey();
                 Console.Clear();
 
-                if (opponent.health <= 0)
+                if (opponent.health <= 0) // If higher than or equal to zero
                 {
                     alive = false;
                     Print("You are the victor! Congratulations, you are a true gladiator!", ConsoleColor.Yellow);
@@ -381,7 +384,7 @@ namespace gladiatorGame
                     enemyID++;
                 }
 
-                if (hero.health <= 0)
+                if (hero.health <= 0) // If less than or equal to zero
                 {
                     alive = false;
                     Print("You have been slain!", ConsoleColor.Red);
@@ -390,6 +393,7 @@ namespace gladiatorGame
                 round++; // Increments after every round
             }
         }
+
         /// <summary>
         /// Print function, easier print out text - takes to parameters
         /// </summary>
@@ -401,11 +405,10 @@ namespace gladiatorGame
             Console.WriteLine(msg);
             Console.ResetColor();
         }
+
         /// <summary>
         /// Character class, contains all variables for the players 'hero'
-        /// Has two built-in functions; GetHeroDmg (1) and GetHeroArmor (2)
-        /// Function 1 - references to another function, within the Weapon class; used to return the value of weapon-damage
-        /// Function 2 - references to another function, within the Armor class; used to return the value of equipped armor
+        /// Has two built-in functions; GetHeroDmg and GetHeroArmor 
         /// </summary>
         public class Character
         {
@@ -417,11 +420,16 @@ namespace gladiatorGame
             public string[] itemLabels = new string[3] { "Weapon: ", "Armor: ", "Shield: " };
             public int[] stats = new int[4];
             public string[] statLabels = new string[4] { "Health: ", "Armor: ", "Agility: ", "Block-chance: " };
-            public Weapon weapon;
-            public Armor armor;
+            public Weapon weapon; // Used for GetHeroDmg
+            public Armor armor; // Used for GetHeroArmor
 
+            /// <summary>
+            /// Returns roll of weapon, calls function in 'Weapon' class
+            /// </summary>
+            /// <returns>Random number between minDmgRoll & maxDmgRoll</returns>
             public int GetHeroDmg()
             {
+                // This if-else statement prevents null-errors
                 if (weapon != null)
                 {
                     return weapon.GetWeaponDmg();
@@ -437,9 +445,9 @@ namespace gladiatorGame
                 return armor.GetArmor();
             }
         }
+
         /// <summary>
         /// Weapon class, contains all needed variables for weapons
-        /// Contains 1 function (GetWeaponDmg), used to return the value of the weapon damage roll (two values; minDmgRoll and maxDmgRoll)
         /// </summary>
         public class Weapon
         {
@@ -449,15 +457,20 @@ namespace gladiatorGame
             public int minDmgRoll;
             public int maxDmgRoll;
 
+            /// <summary>
+            /// Returns random number between minDmgRoll & maxDmgRoll
+            /// </summary>
+            /// <returns>Damage number</returns>
             public int GetWeaponDmg()
             {
                 Random roll = new Random();
                 return roll.Next(minDmgRoll, maxDmgRoll);
             }
         }
+
         /// <summary>
         /// Armor class, contains all needed variables for armor
-        /// Contains 1 funciton (GetArmor), used to return the value of the hero's armor
+        /// Contains 1 function (GetArmor), used to return the value of the hero's armor
         /// </summary>
         public class Armor
         {
@@ -466,6 +479,10 @@ namespace gladiatorGame
             public int armor;
             public int agilityDiff;
 
+            /// <summary>
+            /// Returns armor value
+            /// </summary>
+            /// <returns></returns>
             public int GetArmor()
             {
                 return armor;
@@ -473,16 +490,20 @@ namespace gladiatorGame
         }
         /// <summary>
         /// Enemy class, contains all needed variables for enemies
-        /// Contains 1 function (GetEnemyDmg), used to return the roll of the characters damage
         /// </summary>
         public class Enemy
         {
             public string name;
             public int health;
             public int agility;
-            public Weapon weapon;
+            public Weapon weapon; // Used for function below
+            /// <summary>
+            /// Calls function within 'Weapon' class
+            /// </summary>
+            /// <returns>Random number between minDmgRoll & maxDmgRoll</returns>
             public int GetEnemyDmg()
             {
+                // This if-else statement prevents null-errors
                 if (weapon != null)
                 {
                     return weapon.GetWeaponDmg();
