@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace gladiatorGame2._0
 {
-    public class Character
+    public abstract class Character
     {
         private string _name;
         private bool _isAlive = true;
