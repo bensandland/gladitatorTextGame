@@ -196,102 +196,81 @@ namespace gladiatorGame2._0
 
         static void Combat()
         {
-            int enemyID = 1; // Enemy count, will increment if user wins the round
+            int enemyID = 0; // Enemy count, will increment if user wins the round
             int round = 1; /* Increments after every turn of you and opponent deals damage
                               - to prevent initializing same  opponent over & over */
 
-            while (hero.isAlive)
+            #region Add Enemies
+            //AddEnemies
+            Weapon peasantWeapon = new Weapon("N/A", 2, 7);
+            Armor peasantArmor = new Armor(15, 5);
+            enemies.Add(new Enemy("Pete the Peasant", 65, 10, peasantWeapon, peasantArmor));
+
+            Weapon knightWeapon = new Weapon("N/A", 5, 9);
+            Armor knightArmor = new Armor(20, 0);
+            enemies.Add(new Enemy("Kyle the Knight", 75, 5, knightWeapon, knightArmor));
+
+            Weapon gladiatorWeapon = new Weapon("N/A", 6, 11);
+            Armor gladiatorArmor = new Armor(20, 5);
+            enemies.Add(new Enemy("Gary the Gladiator", 80, 2));
+            #endregion Add Enemies
+
+
+            while (hero.isAlive && (enemies.Count > enemyID))
             {
-                Print("This is round " + enemyID + " in the arena." + "\n" + "Good luck!", ConsoleColor.Cyan);
-                if (round == 1)
+                hero.currentHealth = hero.health;
+                Print("This is round " + round + " in the arena." + "\n" + "Good luck!", ConsoleColor.Cyan);
+                opponent = enemies[enemyID];
+
+                while(hero.isAlive && opponent.isAlive)
                 {
-                    if (enemyID == 1) // Create enemy based on round number
+                    Console.Clear();
+                    // Actual combat-system
+                    // TODO: Remove decimal numbers after damage dealt by enemy (currently is rounded down, but on output-text)
+                    int dmg = hero.weapon.RollWeaponDmg();
+                    opponent.health -= dmg;
+                    Print("You're in combat with a " + opponent.name + "!", ConsoleColor.Red);
+                    Print("\n" + "You dealt " + dmg + " points of damage!", ConsoleColor.Green);
+                    Print("Your opponents health is now: " + opponent.health, ConsoleColor.Yellow);
+
+                    Random defRoll = new Random();
+                    int defensiveRoll = defRoll.Next(0, 100);
+
+                    // Calculate chance to dodge and block
+                    if (defensiveRoll < hero.agility + hero.blockChance)
                     {
-                        Weapon peasantWeapon = new Weapon("N/A", 2, 7);
-                        Armor peasantArmor = new Armor(15, 5);
-
-                        enemies.Add(new Enemy("Pete the Peasant", 65, 10, peasantWeapon, peasantArmor));
-
-                        int enemyDmg = 0;
-                        int eDmg = opponent.GetEnemyDmg();
-                        enemyDmg = eDmg;
+                        Print("\n" + "You dodged your opponents damage!", ConsoleColor.Green);
                     }
-                }
 
-                if (round == 2)
-                {
-                    if (enemyID == 2)
+                    // Calculate damage reduction from armor
+                    else
                     {
-                        hero.currentHealth = hero.health;
-                        Weapon knightWeapon = new Weapon("N/A", 5, 9);
-                        Armor knightArmor = new Armor(20, 0);
-
-                        enemies.Add(new Enemy("Kyle the Knight", 75, 5, knightWeapon, knightArmor));
-
-                        int enemyDmg = 0;
-                        int eDmg = opponent.GetEnemyDmg();
-                        enemyDmg = eDmg;
+                        double calculatedDmg = opponent.GetEnemyDmg() * (1 - (armor.dmgReduc / 100d));
+                        hero.currentHealth -= (int)Math.Floor(calculatedDmg);
+                        Print("\n" + opponent.name + " dealt " + calculatedDmg + " points of damage!", ConsoleColor.Red);
                     }
-                }
 
-                if (round == 3)
-                {
-                    if (enemyID == 3)
+                    
+
+                    if (!opponent.isAlive)
                     {
-                        hero.currentHealth = hero.health;
-                        Weapon gladiatorWeapon = new Weapon("N/A", 6, 11);
-                        Armor gladiatorArmor = new Armor(20, 5);
-
-                        enemies.Add(new Enemy("Gary the Gladiator", 80, 2));
-
-                        int enemyDmg = 0;
-                        int eDmg = opponent.GetEnemyDmg();
-                        enemyDmg = eDmg;
+                        Print("You are the victor! Congratulations, you are a true gladiator!", ConsoleColor.Yellow);
+                        Print("You'll be moving on to the next round!", ConsoleColor.Yellow);
+                        enemyID++;
+                        Console.ReadKey();
+                        continue;
                     }
-                }
-                Console.Clear();
-                // Actual combat-system
-                // TODO: Remove decimal numbers after damage dealt by enemy (currently is rounded down, but on output-text)
-                int dmg = weapon.RollWeaponDmg();
-                opponent.health -= dmg;
-                Print("You're in combat with a " + opponent.name + "!", ConsoleColor.Red);
-                Print("\n" + "You dealt " + dmg + " points of damage!", ConsoleColor.Green);
-                Print("Your opponents health is now: " + opponent.health, ConsoleColor.Yellow);
 
-                Random defRoll = new Random();
-                int defensiveRoll = defRoll.Next(0, 100);
+                    if (!hero.isAlive)
+                    {
+                        Print("You have been slain!", ConsoleColor.Red);
+                        Console.ReadKey();
+                        continue;
+                    }
+                    Print("Your healthpoints is now at: " + hero.currentHealth + "!", ConsoleColor.Yellow);
 
-                // Calculate chance to dodge and block
-                if (defensiveRoll < hero.agility + hero.blockChance)
-                {
-                    Print("\n" + "You dodged your opponents damage!", ConsoleColor.Green);
-                }
-
-                // Calculate damage reduction from armor
-                else
-                {
-                    double calculatedDmg = opponent.GetEnemyDmg() * (1 - (armor.dmgReduc / 100d));
-                    hero.currentHealth -= (int)Math.Floor(calculatedDmg);
-                    Print("\n" + opponent.name + " dealt " + calculatedDmg + " points of damage!", ConsoleColor.Red);
-                }
-
-                Print("Your healthpoints is now at: " + hero.currentHealth + "!", ConsoleColor.Yellow);
-
-                Console.ReadKey();
-                Console.Clear();
-
-                if (!opponent.isAlive)
-                {
-                    Print("You are the victor! Congratulations, you are a true gladiator!", ConsoleColor.Yellow);
-                    Print("You'll be moving on to the next round!", ConsoleColor.Yellow);
                     Console.ReadKey();
-                    enemyID++;
-                }
-
-                if (!hero.isAlive)
-                {
-                    Print("You have been slain!", ConsoleColor.Red);
-                    Console.ReadKey();
+                    Console.Clear();
                 }
                 round++; // Increments after every round
             }

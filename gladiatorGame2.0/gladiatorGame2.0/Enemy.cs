@@ -9,7 +9,7 @@ namespace gladiatorGame2._0
     class Enemy
     {
         private string _name;
-        private bool _isAlive;
+        private bool _isAlive = true;
         private int _health;
         private int _agility;
         private Weapon _weapon;

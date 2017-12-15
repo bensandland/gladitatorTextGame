@@ -66,7 +66,7 @@ namespace gladiatorGame2._0
 
         public Armor()
         {
-            
+
         }
 
         public Armor(int dmgReduc, int agilityDiff)
