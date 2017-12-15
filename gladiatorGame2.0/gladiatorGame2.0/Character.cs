@@ -16,8 +16,8 @@ namespace gladiatorGame2._0
         private int _blockChance;
         private string[] _items = new string[3];
         private string[] _itemLabels = new string[3] { "Weapon: ", "Armor: ", "Shield: " };
-        private int[] _stats = new int[4];
-        private string[] _statLabels = new string[4] { "Health: ", "Armor: ", "Agility: ", "Block-chance: " };
+        private int[] _stats = new int[6];
+        private string[] _statLabels = new string[6] { "Health: ", "Armor: ", "Agility: ", "Block-chance: ", "Min-damage: ", "Max-damage: " };
         private Armor _armor;
         private Weapon _weapon;
 
@@ -48,8 +48,8 @@ namespace gladiatorGame2._0
         {
             weapon.name = "steel sword";
             weapon.type = "One-handed";
-            weapon.minDmgRoll = 4;
-            weapon.maxDmgRoll = 7;
+            weapon.minDmg = 4;
+            weapon.maxDmg = 7;
             weapon.offhand = "Iron shield";
             
             armor.name = "chain mail";
@@ -69,6 +69,9 @@ namespace gladiatorGame2._0
             stats[1] = armor.dmgReduc;
             stats[2] = agility;
             stats[3] = blockChance;
+            stats[4] = weapon.minDmg;
+            stats[5] = weapon.maxDmg;
+
         }
 
         public Light(string name)
@@ -77,8 +80,8 @@ namespace gladiatorGame2._0
 
             weapon.name = "steel sword";
             weapon.type = "One-handed";
-            weapon.minDmgRoll = 4;
-            weapon.maxDmgRoll = 7;
+            weapon.minDmg = 4;
+            weapon.maxDmg = 7;
             weapon.offhand = "Iron shield";
 
             armor.name = "chain mail";
@@ -98,6 +101,8 @@ namespace gladiatorGame2._0
             stats[1] = armor.dmgReduc;
             stats[2] = agility;
             stats[3] = blockChance;
+            stats[4] = weapon.minDmg;
+            stats[5] = weapon.maxDmg;
         }
     }
 
@@ -107,13 +112,13 @@ namespace gladiatorGame2._0
         {
             weapon.name = "wooden spear";
             weapon.type = "Two-handed";
-            weapon.minDmgRoll = 5;
-            weapon.maxDmgRoll = 11;
+            weapon.minDmg = 5;
+            weapon.maxDmg = 11;
             weapon.offhand = "Iron shield";
 
             armor.name = "chain mail";
             armor.type = "Medium";
-            armor.dmgReduc = 15;
+            armor.dmgReduc = 12;
             armor.agilityDiff = 0;
 
             health = 90;
@@ -128,6 +133,8 @@ namespace gladiatorGame2._0
             stats[1] = armor.dmgReduc;
             stats[2] = agility;
             stats[3] = blockChance;
+            stats[4] = weapon.minDmg;
+            stats[5] = weapon.maxDmg;
         }
 
         public Medium(string name)
@@ -136,13 +143,13 @@ namespace gladiatorGame2._0
 
             weapon.name = "wooden spear";
             weapon.type = "Two-handed";
-            weapon.minDmgRoll = 5;
-            weapon.maxDmgRoll = 11;
+            weapon.minDmg = 5;
+            weapon.maxDmg = 11;
             weapon.offhand = "Iron shield";
 
             armor.name = "chain mail";
             armor.type = "Medium";
-            armor.dmgReduc = 15;
+            armor.dmgReduc = 22;
             armor.agilityDiff = 0;
 
             health = 90;
@@ -157,6 +164,8 @@ namespace gladiatorGame2._0
             stats[1] = armor.dmgReduc;
             stats[2] = agility;
             stats[3] = blockChance;
+            stats[4] = weapon.minDmg;
+            stats[5] = weapon.maxDmg;
         }
     }
 
@@ -166,8 +175,8 @@ namespace gladiatorGame2._0
         {
             weapon.name = "steel axe";
             weapon.type = "Two-handed";
-            weapon.minDmgRoll = 8;
-            weapon.maxDmgRoll = 20;
+            weapon.minDmg = 8;
+            weapon.maxDmg = 20;
             weapon.offhand = "Iron shield";
 
             armor.name = "iron plate";
@@ -187,6 +196,8 @@ namespace gladiatorGame2._0
             stats[1] = armor.dmgReduc;
             stats[2] = agility;
             stats[3] = blockChance;
+            stats[4] = weapon.minDmg;
+            stats[5] = weapon.maxDmg;
         }
 
         public Heavy(string name)
@@ -195,8 +206,8 @@ namespace gladiatorGame2._0
 
             weapon.name = "steel axe";
             weapon.type = "Two-handed";
-            weapon.minDmgRoll = 8;
-            weapon.maxDmgRoll = 20;
+            weapon.minDmg = 8;
+            weapon.maxDmg = 20;
             weapon.offhand = "Iron shield";
 
             armor.name = "iron plate";
@@ -216,6 +227,8 @@ namespace gladiatorGame2._0
             stats[1] = armor.dmgReduc;
             stats[2] = agility;
             stats[3] = blockChance;
+            stats[4] = weapon.minDmg;
+            stats[5] = weapon.maxDmg;
         }
     }
 }

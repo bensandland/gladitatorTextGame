@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace gladiatorGame2._0
 {
+    // TODO: Add menu class, for cleaner code in program.cs
+    // TODO: Add more character customization (maybe pick up opponents weapon after fight? or the option to upgrade after each round)
     class Program
     {
         // Create instances of classes - to assign variables in different scopes
-        public static Character hero = new Character();
+        public static Character hero;
+        public static string name;
         public static Weapon weapon = new Weapon();
         public static Armor armor = new Armor();
         public static Enemy opponent = new Enemy();
@@ -25,7 +28,6 @@ namespace gladiatorGame2._0
         static void Main(string[] args)
         {
             Console.WindowWidth = 155;
-
             StartGame();
             NameChar();
             ChooseChar();
@@ -51,12 +53,12 @@ namespace gladiatorGame2._0
                 Console.Clear();
                 Print("Gladiator, what is your name?", ConsoleColor.Yellow);
                 Console.Write("Enter your name: ");
-                hero.name = Console.ReadLine(); // Assign input to name of the class
+                name = Console.ReadLine(); // Assign input to name of the class
 
-                if (hero.name != "") // Check if string isn't empty
+                if (name != "") // Check if string isn't empty
                 {
                     nameCheck = false;
-                    Print("Alright, good luck in the arena " + hero.name + "!", ConsoleColor.Green);
+                    Print("Alright, good luck in the arena " + name + "!", ConsoleColor.Green);
                     Console.ReadKey();
                 }
 
@@ -129,7 +131,7 @@ namespace gladiatorGame2._0
                     Print("You have chosen the light armor with a one-handed sword and shield! \n", ConsoleColor.Green);
                     Print("Press any key to continue..", ConsoleColor.Red);
                     Console.ReadKey();
-                    hero = new Light(hero.name);
+                    hero = new Light(name);
                 }
 
                 else if (choice == "2")
@@ -139,7 +141,7 @@ namespace gladiatorGame2._0
                     Print("You have chosen the medium armor with a spear! \n", ConsoleColor.Green);
                     Print("Press any key to continue..", ConsoleColor.Red);
                     Console.ReadKey();
-                    hero = new Medium(hero.name);
+                    hero = new Medium(name);
                 }
 
                 else if (choice == "3")
@@ -149,7 +151,7 @@ namespace gladiatorGame2._0
                     Print("You have chosen the heavy armor with the two-handed axe! \n", ConsoleColor.Green);
                     Print("Press any key to continue..", ConsoleColor.Red);
                     Console.ReadKey();
-                    hero = new Heavy(hero.name);
+                    hero = new Heavy(name);
                 }
             }
         }
@@ -199,22 +201,13 @@ namespace gladiatorGame2._0
             int enemyID = 0; // Enemy count, will increment if user wins the round
             int round = 1; /* Increments after every turn of you and opponent deals damage
                               - to prevent initializing same  opponent over & over */
-
             #region Add Enemies
             //AddEnemies
-            Weapon peasantWeapon = new Weapon("N/A", 2, 7);
-            Armor peasantArmor = new Armor(15, 5);
-            enemies.Add(new Enemy("Pete the Peasant", 65, 10, peasantWeapon, peasantArmor));
-
-            Weapon knightWeapon = new Weapon("N/A", 5, 9);
-            Armor knightArmor = new Armor(20, 0);
-            enemies.Add(new Enemy("Kyle the Knight", 75, 5, knightWeapon, knightArmor));
-
-            Weapon gladiatorWeapon = new Weapon("N/A", 6, 11);
-            Armor gladiatorArmor = new Armor(20, 5);
-            enemies.Add(new Enemy("Gary the Gladiator", 80, 2));
+            enemies.Add(new Enemy("Pete the Peasant", 65, 10,  new Weapon("N/A", 2, 7), new Armor(15, 5)));
+            enemies.Add(new Enemy("Kyle the Knight", 75, 5, new Weapon("N/A", 5, 9), new Armor(20, 0)));
+            enemies.Add(new Enemy("Gary the Gladiator", 85, 20, new Weapon("N/A", 6, 11), new Armor(20, 5)));
+            enemies.Add(new Enemy("Walter the Warrior", 100, 5, new Weapon("N/A", 9, 14), new Armor(30, 0)));
             #endregion Add Enemies
-
 
             while (hero.isAlive && (enemies.Count > enemyID))
             {
@@ -250,8 +243,6 @@ namespace gladiatorGame2._0
                         Print("\n" + opponent.name + " dealt " + calculatedDmg + " points of damage!", ConsoleColor.Red);
                     }
 
-                    
-
                     if (!opponent.isAlive)
                     {
                         Print("You are the victor! Congratulations, you are a true gladiator!", ConsoleColor.Yellow);
@@ -268,7 +259,6 @@ namespace gladiatorGame2._0
                         continue;
                     }
                     Print("Your healthpoints is now at: " + hero.currentHealth + "!", ConsoleColor.Yellow);
-
                     Console.ReadKey();
                     Console.Clear();
                 }

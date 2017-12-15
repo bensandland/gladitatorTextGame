@@ -23,8 +23,8 @@ namespace gladiatorGame2._0
 
         // Getters & setters
         public string offhand { get { return _offhand; } set { _offhand = value; } }
-        public int minDmgRoll { get { return _minDmgRoll; } set { _minDmgRoll = value; } }
-        public int maxDmgRoll { get { return _maxDmgRoll; } set { _maxDmgRoll = value; } }
+        public int minDmg { get { return _minDmgRoll; } set { _minDmgRoll = value; } }
+        public int maxDmg { get { return _maxDmgRoll; } set { _maxDmgRoll = value; } }
 
         public Weapon()
         {
@@ -34,14 +34,14 @@ namespace gladiatorGame2._0
         public Weapon(string offhand, int minDmgRoll, int maxDmgRoll)
         {
             this.offhand = offhand;
-            this.minDmgRoll = minDmgRoll;
-            this.maxDmgRoll = minDmgRoll;
+            this.minDmg = minDmgRoll;
+            this.maxDmg = minDmgRoll;
         }
 
         public int RollWeaponDmg()
         {
             Random roll = new Random();
-            return roll.Next(minDmgRoll, maxDmgRoll);
+            return roll.Next(minDmg, maxDmg);
         }
     }
 
