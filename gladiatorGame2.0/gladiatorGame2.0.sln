@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gladiatorGame2.0", "gladiatorGame2.0\gladiatorGame2.0.csproj", "{81D3CDFC-FE57-43A0-90E5-21FBDBF10270}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{81D3CDFC-FE57-43A0-90E5-21FBDBF10270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D3CDFC-FE57-43A0-90E5-21FBDBF10270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D3CDFC-FE57-43A0-90E5-21FBDBF10270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D3CDFC-FE57-43A0-90E5-21FBDBF10270}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E3448D81-7453-4A8C-88A6-01BEA8FB2080}
+	EndGlobalSection
+EndGlobal
